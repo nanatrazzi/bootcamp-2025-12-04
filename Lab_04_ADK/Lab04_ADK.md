@@ -97,10 +97,10 @@ Certifique-se de salvar sua chave de API em um local seguro, pois você poderá 
 ## Criando um ambiente e o ativando para o ADK
 
 
-No seu terminal, execute o seguinte comando. Substitua `<environment_name>` e `<service_instance_url>` com o nome do ambiente escolhido e a URL que você copiou:
+No seu terminal, execute o seguinte comando. Substitua `your_env_name` e `your_instance_number_url ` com o nome do ambiente escolhido e a URL que você copiou:
 
 ```bash
-orchestrate env add -n <environment_name> -u <service_instance_url> --type ibm_iam --activate
+orchestrate env add -n your_env_name -u your_instance_number_url --type ibm_iam --activate
 ```
 
 Você será solicitado a inserir sua chave de API:
