@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: Simulador Previdenciário IBM
+  version: 1.0.0
+  description: >
+    API para cálculo de contribuições do Plano CD Atual da Fundação Previdenciária IBM.
+    Segue exatamente as regras usadas na planilha Excel oficial:
+      - CV = salário * percentual_cv
+      - Patrocinadora 1 = 1% (< 2 anos) ou 1.5% (>= 2 anos)
+      - Patrocinadora 2 = min(CV, 6%) * (salário - UR) (mesmo se negativo!)
+      - Total = CV + P1 + P2
+
+servers:
+  - url: <CODE_ENGINE_URL_AQUIII> (SEM / NO FINAL E HTTPS://)
+    description: Endpoint do microserviço FastAPI no Code Engine ou local.
+
+paths:
+  /simular:
+    post:
+      operationId: simulador_previdenciario
+      summary: Calcula CV, Patrocinadora 1, Patrocinadora 2 e total mensal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - salario_bruto
+                - data_admissao
+                - percentual_cv
+              properties:
+                salario_bruto:
+                  type: number
+                  description: Salário bruto atual (R$).
+                data_admissao:
+                  type: string
+                  format: date
+                  description: Data de admissão (AAAA-MM-DD).
+                percentual_cv:
+                  type: number
+                  description: Percentual de Contribuição Voluntária (CV).
+      responses:
+        "200":
+          description: Cálculo realizado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
