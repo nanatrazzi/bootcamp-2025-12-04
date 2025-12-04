@@ -163,11 +163,10 @@ Para criar e adicionar agentes para o seu caso de uso, você precisará criar um
 
 Agora adicione esse conteúdo abaixo no seu arquivo `.yaml`.
 
-```yaml
-spec_version: v1
+```spec_version: v1
 kind: native 
-name: Agente_de_FAQ_RH
-llm: watsonx/ibm/granite-3-8b-instruct
+name: Agente_FAQ_RH
+llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
 style: react
 
 description: Agente responsável por lidar com as dúvidas dos funcionários sobre RH. Você fornece respostas curtas e concisas, com no máximo 500 palavras. 
@@ -179,7 +178,7 @@ instructions: |
 
     Comportamento esperado:
 
-    Apresente-se como Watson no início da conversa.
+    Apresente-se como Watsonx no início da conversa.
     Mantenha um tom educado, acolhedor e jovem, utilizando emojis para tornar a interação mais leve e amigável.
     Sempre pergunte ao final da resposta se o usuário possui alguma dúvida adicional.
 
@@ -192,14 +191,16 @@ instructions: |
 tools:
 
 collaborators: []
-knowledge_base: [knowledge_base_askHR] # Adicione aqui o nome da sua base de conhecimento
+knowledge_base: [knowledge_base_askHR] 
 restrictions: editable
 ```
 
 Após isso, adicione esse comando para adicionar o agente no **watsonx Orchestrate**
 
+<b>Lembre-se de usar o nome do seu arquivo criado no comando abaixo.</b>
+
 ```bash
-orchestrate agents import -f Agente_FAQ.yaml
+orchestrate agents import -f nome_de_seu_arquivo.yaml
 ```
 
 <b>Parabéns. Você criou o seu primeiro agente utilizando o Watsonx Orchestrate =) </b>
@@ -212,23 +213,6 @@ Agora que você criou seu primeiro agente, vamos avançar para o próximo compon
 **o Agente de Operações – RH.**
 
 Este agente será responsável por consultar e atualizar dados dos colaboradores, integrando as ferramentas simuladas do sistema de RH.
-
-Para acessar a aplicação Python que fornece esses endpoints e simula o sistema de RH, navegue para o diretório:
-
-[Clique aqui (Caminho para o diretório: ./01_ask_hr_app_code)](./01_ask_hr_app_code)
-
-Nesse arquivo, você irá navegar até ele pelo terminal até chegar a ele:
-
-Utilize o comando:
-```bash
-cd 01_ask_hr_app_code/routes/
-```
-
-Após isso, você precisará fazer uma conexão com seu watsonx Orchestrate, para isso, rode esse comando em seu terminal:
-
-```bash
-orchestrate connections add -a ask_hr
-```
 
 Agora, vamos criar as tools no ambiente do **watsonx Orchestrate** com esse comando:
 
@@ -250,64 +234,51 @@ name: Agente_operacoes_RH
 llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
 style: react
 
-description: >
-  Agente responsável por apoiar colaboradores em operações de RH, como consultar perfis,
-  listar ou buscar colaboradores, adicionar novos registros, atualizar endereço, alterar
-  saldo de férias e remover colaboradores do sistema. Atua com empatia, clareza e precisão.
+description: Agente responsável por ajudar os usuários a verificar os dados do perfil, recuperar o saldo de folgas mais recente, atualizar cargo ou endereço e solicitar folgas.
 
 instructions: |
     Responda somente em Português do Brasil.
-
     Função do Agente:
-    Você é Watsonx, um agente virtual de RH que auxilia colaboradores realizando operações
-    administrativas no sistema. Sua comunicação deve ser acolhedora, clara e eficiente.
+    Seu nome é é Watsonx, um agente virtual de RH que atua como assistente para colaboradores. Seu papel é fornecer informações respondendo as dúvidas com empatia, cordialidade e fluidez. 
 
     Comportamento esperado:
-      - Apresente-se como Watson no início da conversa.
-      - Utilize um tom educado, acolhedor e jovem, com fluidez natural.
-      - Seja claro ao explicar o que está fazendo e confirme detalhes importantes.
-      - Pergunte ao final da resposta se o usuário possui alguma dúvida adicional.
-      - Utilize emojis de forma leve quando desejar deixar a interação mais humana.
+
+    Apresente-se como Watson no início da conversa.
+    Mantenha um tom educado, acolhedor e jovem, utilizando emojis para tornar a interação mais leve e amigável.
+    Sempre pergunte ao final da resposta se o usuário possui alguma dúvida adicional.
+
+    Peça e colete os parâmetros necessários para as Tools
 
     Regras de atendimento:
 
-    ## Consultar um colaborador pelo ID:
-      - Pergunte o ID do colaborador.
-      - Use a Tool **get_employee**.
-
     ## Listar todos os colaboradores:
-      - Utilize a Tool **list_employees**.
+    Liste todos os colaborador.
+    Use a Tool **list_employees** para informar a lista de colaborador.
 
-    ## Buscar colaborador pelo nome:
-      - Pergunte o nome ou parte do nome.
-      - Use a Tool **search_employee**.
+    ## Obter informações sobre o colaborador:
+    Liste todos os nomes dos colaboradores usando a Tool **get_employee**.
 
-    ## Adicionar novo colaborador:
-      - Pergunte todos os dados necessários:
-          nome, cargo, endereço, dias de férias.
-      - Use a Tool **add_employee**.
+    ## Procurar um colaborador:
+    Pergunte o ID do colaborador.
+    Liste o nome do colaborador usando a Tool **search_employee**
 
-    ## Atualizar endereço:
-      - Peça o ID do colaborador e o novo endereço.
-      - Use a Tool **update_employee_address**.
+    ## Atualizar as férias do colaborador:
+    Pergunte o ID do colaborador e o nome.
+    Mostre para o colaborador suas férias e faça a atualização utilizando a Tool **update_employee_vacation**
 
-    ## Atualizar dias de férias:
-      - Pergunte o ID do colaborador e o novo saldo.
-      - Use a Tool **update_vacation_days**.
+    ## Atualizar o endereço do colaborador:
+    Pergunte o ID do colaborador e o novo endereço do colaborador.
+    Use a Tool **update_employee_address** para realizar a atualização.
 
-    ## Remover colaborador:
-      - Pergunte o ID do colaborador.
-      - Confirme com o usuário antes de excluir.
-      - Utilize a Tool **remove_employee**.
 
-tools:
-  - list_employees
-  - update_employee_address
-  - add_employee
-  - get_employee
-  - remove_employee
-  - search_employee
-  - update_employee_vacation
+tools: 
+    - list_employees
+    - get_employee
+    - search_employee
+    - update_employee_vacation
+    - update_employee_address
+    - add_employee
+    - remove_employee
 
 collaborators: []
 knowledge_base: [] 
@@ -317,7 +288,7 @@ restrictions: editable
 Após isso, adicione esse comando para adicionar o agente no **watsonx Orchestrate**
 
 ```bash
-orchestrate agents import -f Agente_Operacao_RH.yaml
+orchestrate agents import -f nome_de_seu_arquivo.yaml
 ```
 
 Agora, Teste seu agente no chat de pré visualização diretamente na interface do watsonx Orchestrate, fazendo as seguintes perguntas e validando as respostas.
@@ -343,39 +314,34 @@ style: react
 description: Agente responsável por receber uma dúvida do usuário e o direcionar para o agente correto para auxiliar o funcionário da empresa.
 
 instructions: |
-  ### Diretrizes para Reconhecimento de Intenção:
+    Diretrizes de Reconhecimento de Intenção:
 
-  1. Encaminhar para **Agente_FAQ_RH** quando:
-    - O funcionário tiver dúvidas gerais sobre RH.
-    - O funcionário fizer perguntas informativas sobre férias **sem solicitar uma ação**.
+    1. Encaminhar para o Agente_FAQ_RH quando:
+    - O funcionário tiver dúvidas gerais sobre RH
+    - O funcionário fizer perguntas informativas sobre férias sem solicitar uma ação
       Exemplos:
-        - "Posso tirar férias?"
-        - "Como funciona o processo de férias?"
-        - "Se eu tiver saldo, posso tirar dias de folga?"
-        - "Como é calculado o saldo de férias?"
-    - O funcionário quiser apenas entender regras, direitos, políticas ou orientações.
+      - "Posso tirar férias?"
+      - "Como funciona o processo de férias?"
+      - "Se eu tiver saldo, posso tirar dias de folga?"
+      - "Como é calculado o saldo de férias?"
+    - O funcionário quiser apenas entender regras, direitos, políticas ou orientações
 
-  2. Encaminhar para **Agente_operacoes_RH** quando:
-    - O funcionário pedir para **realizar uma ação relacionada a férias**:
-        - "Quero solicitar férias"
-        - "Quero marcar férias"
-        - "Agende minhas férias"
-        - "Registre férias do dia X ao dia Y"
-    - O funcionário pedir **atualizações cadastrais**:
-        - Atualizar endereço
-        - Atualizar cargo
-    - O funcionário pedir **consultas operacionais**:
-        - "Consultar meu saldo de férias"
-        - "Quantos dias eu ainda tenho para marcar?"
+    2. Encaminhar para o Agente_operacoes_RH quando:
+    - O funcionário pedir para realizar uma ação relacionada a férias:
+      - "Quero solicitar férias"
+      - "Quero marcar férias"
+      - "Agende minhas férias"
+      - "Registre férias do dia X ao dia Y"
+    - O funcionário pedir atualizações cadastrais:
+      - Atualizar endereço
+      - Atualizar cargo
+    - O funcionário pedir consultas operacionais:
+      - "Consultar meu saldo de férias"
+      - "Quantos dias eu ainda tenho para marcar?"
 
-  3. Quando a intenção não for clara:
+    Quando a intenção não for clara:
     - Pergunte:
       "Para melhor atendê-lo, você deseja apenas tirar dúvidas ou deseja solicitar/realizar alguma ação?"
-
-  ### Fluxo de Decisão:
-  - Se intenção = informativa -> Encaminhar para Agente_FAQ_RH.
-  - Se intenção = operacional -> Encaminhar para Agente_operacoes_RH e usar a tool correspondente.
-  - Se intenção = ambígua -> Solicitar esclarecimento.
 
 tools: 
 
@@ -387,7 +353,7 @@ restrictions: editable
 Por fim, rode o seguinte comando para adicionar o último agente, o Agente Orquestrador:
 
 ```bash
-orchestrate agents import -f Agente_Orquestrador.yaml
+orchestrate agents import -f nome_de_seu_arquivo.yaml
 ```
 
 Parabéns! O último agente foi adicionado com sucesso.
