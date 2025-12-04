@@ -1,5 +1,7 @@
 # Agente FAQ RH
 
+![wxo labs - hands on](../Documents/askhr_1/img_rh.png)
+
 ## Caso de uso
 
 A TechCorp Inc., líder global em tecnologia com mais de 100 mil colaboradores, enfrenta um desafio crítico: Sua equipe de RH está sobrecarregada respondendo dúvidas básicas e repetitivas, como políticas internas, processos de férias e benefícios.
