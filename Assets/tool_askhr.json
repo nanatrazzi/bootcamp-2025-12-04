@@ -6,7 +6,7 @@
   },
    "servers": [
     {
-      "url": "https://lab01-bootcamp-askhr.1s114dw112r2.us-south.codeengine.appdomain.cloud/",
+      "url": "https://bootcamp-askhr.1s114dw112r2.us-south.codeengine.appdomain.cloud",
       "description": "Code Engine - Deploy"
     }
 ],
