@@ -86,7 +86,7 @@ Use a Tool **Update Address** para realizar a atualização.
 
 ![wxo labs - hands on](../Documents/askhr_2/10.png)
 
-14. Navegue até a sessão `Channels` e em seguida desabilite a opção `Show agent`
+14. Navegue até a sessão `Channels` e em seguida desabilite a opção `Home page`
 
 > Importante: Esta opção mantém o agente desabilitado na página principal de interação, pois futuramente será implementado um agente orquestrador responsável por gerenciar e direcionar os usuários para os agentes apropriados, conforme o contexto da interação. Se preferir utilizar seu agente de forma individual e direta, você pode manter esta opção habilitada. Assim, ele ficará disponível para uso imediato, fora do fluxo orquestrado.
 
