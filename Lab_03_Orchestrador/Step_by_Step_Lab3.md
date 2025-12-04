@@ -104,9 +104,7 @@ Você é um Agente de atendimento de uma empresa chamada TechCorp Inc., e o prim
 
 ![wxo labs - hands on](../Documents/askhr_3/9.png)
 
-Navegue até a sessão `Channels`
-
-- Mantenha a opção `Show agent` habilitada
+- Navegue até a sessão `Channels` e mantenha a opção `Home page` habilitada
 
 ![wxo labs - hands on](../Documents/askhr_3/10.png)
 
