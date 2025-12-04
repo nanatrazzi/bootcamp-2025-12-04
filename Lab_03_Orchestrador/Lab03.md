@@ -1,5 +1,7 @@
 # Caso de Uso: Agente Único Orquestrador para Operações de RH na TechCorp
 
+![wxo labs - hands on](../Documents/askhr_3/arq_lab03.png)
+
 ## Desafio
 
 Após implementar agentes inteligentes para responder dúvidas básicas e integrar sistemas de RH para tarefas como alteração de endereço, verificação de férias e solicitação de férias, <b>a TechCorp ainda enfrenta um desafio: a experiência está fragmentada entre diferentes agentes especializados.</b> Os colaboradores precisam interagir com múltiplos pontos de acesso, o que reduz a fluidez e a eficiência.
