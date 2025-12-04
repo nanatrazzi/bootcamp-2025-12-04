@@ -230,22 +230,7 @@ Após isso, você precisará fazer uma conexão com seu watsonx Orchestrate, par
 orchestrate connections add -a ask_hr
 ```
 
-Agora, terá que adicionar as credenciais de draft e live para sua conexão:
-
-1.
-```bash
-orchestrate connections configure -a ask_hr --environment draft -t team -k api_key
-orchestrate connections configure -a ask_hr --environment live -t team -k api_key
-```
-2.
-```bash
-orchestrate connections set-credentials -a ask_hr --env draft --api-key VALUE
-orchestrate connections set-credentials -a ask_hr --env live --api-key VALUE
-```
-
-Lembre-se do nome da sua conexão para futuras execuções no terminal
-
-Agora, você terá que adicionar as tools no ambiente do **watsonx Orchestrate** com esse comando:
+Agora, vamos criar as tools no ambiente do **watsonx Orchestrate** com esse comando:
 
 ```bash
 orchestrate tools import \
