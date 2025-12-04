@@ -1,8 +1,6 @@
 
 # AskHR: Automatize tarefas de RH com a IA da Agentic
 
-![wxo labs - hands on](../Documents/askhr_1/img_rh.png)
-
 ## Índice
 
 - [AskHR: Automatize tarefas de RH com a IA da Agentic](#askhr-automatize-tarefas-de-rh-com-a-ia-da-agentic)
