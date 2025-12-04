@@ -1,6 +1,8 @@
 
 # Agente de Operações RH
 
+![wxo labs - hands on](../Documents/askhr_2/img_rh_2.png)
+
 ## Caso de Uso
 
 Após reduzir a carga de dúvidas básicas com agentes inteligentes, a TechCorp identificou um novo ponto crítico: Colaboradores ainda enfrentam dificuldades para realizar tarefas simples, como alterar endereço, verificar saldo de férias e solicitar férias, pois essas operações estão distribuídas em diferentes sistemas de RH. 
